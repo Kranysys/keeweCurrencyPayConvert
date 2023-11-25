@@ -5,7 +5,7 @@
   "main": "src/index.tsx",
   "author": "Nicolas BAPTISTA",
   "scripts": {
-    "start:dev": "vite",
+    "start": "vite",
     "generate:version": "cd ../.. && yarn generate:version",
     "build": "vite build",
     "serve": "vite preview",
@@ -13,12 +13,19 @@
     "check-types": "tsc"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@keeweCurrencyPayConvert/domain": "^1.0.0",
     "@keeweCurrencyPayConvert/lib": "^1.0.0",
+    "@mui/icons-material": "^5.14.18",
+    "@mui/material": "^5.14.18",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.6",
     "debug": "^4.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "semver": "^7.5.2"
+    "react-router-dom": "^6.20.0",
+    "semver": "^7.5.2",
+    "styled-components": "^6.1.1"
   },
   "peerDependencies": {
     "@keeweCurrencyPayConvert/server": "1.0.0"

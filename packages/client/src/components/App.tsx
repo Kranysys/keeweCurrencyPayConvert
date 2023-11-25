@@ -1,9 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { Dictionary } from '@keeweCurrencyPayConvert/domain';
-
 import { API_URL } from '~/config';
 import { Logger, checkServerVersion } from '~/utils';
+
+import PaymentPage from './PaymentPage';
+import CurrencyConverterPage from './CurrencyConverterPage';
+import NavBar from './NavBar';
 
 export const App: FC<unknown> = () => {
   const [response, setResponse] = useState<string>('NO SERVER RESPONSE');
@@ -30,8 +34,17 @@ export const App: FC<unknown> = () => {
     first: 1,
     second: 2,
   };
+
   return (
-    <>
+    <Router>
+      <NavBar />
+
+      <div className="page">
+        <Routes>
+          <Route path="/" element={<PaymentPage />} />
+          <Route path="/convert" element={<CurrencyConverterPage />} />
+        </Routes>
+      </div>
       <div>
         Here we use a <code>Dictionary&lt;number&gt;</code> interface from the{' '}
         <code>@keeweCurrencyPayConvert/domain</code> package:
@@ -43,6 +56,8 @@ export const App: FC<unknown> = () => {
         <br />
         {response}
       </div>
-    </>
+    </Router>
   );
 };
+
+export default App;

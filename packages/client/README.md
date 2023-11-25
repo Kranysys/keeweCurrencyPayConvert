@@ -9,7 +9,7 @@ Par défaut, le serveur de développement écoute sur le port http://localhost:8
 Lancer le frontend avec:
 
 ```sh
-yarn start:dev
+yarn start
 ```
 
 Vérification si le code est TypeScript compliant:
