@@ -1,5 +1,5 @@
 {
-  "name": "@keeweCurrencyPayConvert/client-vite",
+  "name": "@keeweCurrencyPayConvert/client",
   "version": "1.0.0",
   "description": "Frontend",
   "main": "src/index.tsx",

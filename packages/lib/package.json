@@ -1,7 +1,7 @@
 {
   "name": "@keeweCurrencyPayConvert/lib",
   "version": "1.0.0",
-  "description": "Library of the keeweCurrencyPayConvert boilerplate",
+  "description": "Library of the keeweCurrencyPayConvert",
   "author": "Nicolas BAPTISTA",
   "main": "dist/index.js",
   "scripts": {
