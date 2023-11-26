@@ -4,7 +4,7 @@ Ce projet utilise **[TypeScript](https://www.typescriptlang.org/)** (^4.7.4), et
 
 - [NestJS](https://nestjs.com/) (^9.0.11) pour le serveur (API REST)
 
-- [React + ReactDOM](https://reactjs.org/) (^18.2.0) pour le client
+- [React + ReactDOM](https://reactjs.org/) (^18.2.0) pour le frontend
 
 - [Vite](https://vitejs.dev/) (^3.0.9): Basé sur ESBuild et Rollup, cet outil combine vitesse, performance et configurabilité pour offrir la meilleure expérience de développement frontend possible
 
@@ -16,7 +16,7 @@ Ce projet utilise **[TypeScript](https://www.typescriptlang.org/)** (^4.7.4), et
 yarn install
 ```
 
-2. Builder les packages (`lib` and `domain`) uitlisés par `server` et `client`:
+2. Builder les packages (`lib` and `domain`) uitlisés par `backend` et `frontend`:
 
 ```sh
 yarn build:common

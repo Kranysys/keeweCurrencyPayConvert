@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link, useLocation } from 'react-router-dom';
 import PaymentIcon from '@mui/icons-material/Payment';
+import HistoryIcon from '@mui/icons-material/History';
 import CurrencyExchangeIcon from '@mui/icons-material/MonetizationOn';
 
 const NavBar = () => {
@@ -33,6 +34,7 @@ const NavBar = () => {
         >
           Paiements
         </Button>
+        <div className="link-separator" />
         <Button
           color="inherit"
           component={Link}
@@ -45,6 +47,20 @@ const NavBar = () => {
           }}
         >
           Conversion
+        </Button>
+        <div className="link-separator" />
+        <Button
+          color="inherit"
+          component={Link}
+          to="/history"
+          startIcon={<HistoryIcon />}
+          sx={{
+            backgroundColor: isSelected('/history')
+              ? 'rgba(255, 255, 255, 0.12)'
+              : 'inherit',
+          }}
+        >
+          Historique des Transactions
         </Button>
       </Toolbar>
     </AppBar>

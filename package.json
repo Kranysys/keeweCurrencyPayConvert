@@ -22,14 +22,14 @@
     "generate:version": "./scripts/generate_version.sh",
     "start:domain": "yarn workspace @keeweCurrencyPayConvert/domain start:dev",
     "start:lib": "yarn workspace @keeweCurrencyPayConvert/lib start:dev",
-    "start:client": "yarn workspace @keeweCurrencyPayConvert/client start",
-    "start:server": "yarn workspace @keeweCurrencyPayConvert/server start",
-    "start:common": "(yarn start:domain & yarn start:lib & yarn start:client & yarn start:server)",
+    "start:frontend": "yarn workspace @keeweCurrencyPayConvert/frontend start",
+    "start:backend": "yarn workspace @keeweCurrencyPayConvert/backend start",
+    "start:common": "(yarn start:domain & yarn start:lib & yarn start:frontend & yarn start:backend)",
     "build:domain": "yarn workspace @keeweCurrencyPayConvert/domain build",
     "build:lib": "yarn workspace @keeweCurrencyPayConvert/lib build",
-    "build:client": "yarn workspace @keeweCurrencyPayConvert/client build",
-    "build:server": "yarn workspace @keeweCurrencyPayConvert/server build",
-    "build:common": "(yarn build:domain && yarn build:lib && yarn build:client && yarn build:server)",
+    "build:frontend": "yarn workspace @keeweCurrencyPayConvert/frontend build",
+    "build:backend": "yarn workspace @keeweCurrencyPayConvert/backend build",
+    "build:common": "(yarn build:domain && yarn build:lib && yarn build:frontend && yarn build:backend)",
     "lint": "yarn workspaces run lint"
   }
 }

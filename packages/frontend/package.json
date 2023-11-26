@@ -1,5 +1,5 @@
 {
-  "name": "@keeweCurrencyPayConvert/client",
+  "name": "@keeweCurrencyPayConvert/frontend",
   "version": "1.0.0",
   "description": "Frontend",
   "main": "src/index.tsx",
@@ -28,7 +28,7 @@
     "styled-components": "^6.1.1"
   },
   "peerDependencies": {
-    "@keeweCurrencyPayConvert/server": "1.0.0"
+    "@keeweCurrencyPayConvert/backend": "1.0.0"
   },
   "devDependencies": {
     "@types/debug": "^4.1.7",

@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
+import { API_URL } from '~/config';
 import {
   TextField,
   Button,
@@ -28,16 +29,23 @@ const CurrencyConverterPage: React.FC = () => {
     setCurrencyTo(event.target.value as string);
   };
 
+  const convertCurrency = async (): Promise<void> => {
+    try {
+      const response = await fetch(
+        `${API_URL}/exchange/convert?from=${currencyFrom}&to=${currencyTo}&amount=${amount}`
+      );
+      if (!response.ok) {
+        throw new Error('Réponse réseau non OK');
+      }
+      const data = await response.json();
+      setConvertedAmount(data.convertedAmount);
+    } catch (error) {
+      console.error('Erreur lors de la conversion de devise:', error);
+    }
+  };
+
   const handleConvert = (): void => {
-    // Conversion logic here
-    // For simplicity, let's assume fixed conversion rates
-    let rate = 1;
-    if (currencyFrom === 'EUR' && currencyTo === 'USD') {
-      rate = 1.1;
-    } else if (currencyFrom === 'GBP' && currencyTo === 'USD') {
-      rate = 1.3;
-    } // Add more conditions as needed
-    setConvertedAmount(parseFloat(amount) * rate);
+    convertCurrency();
   };
 
   return (

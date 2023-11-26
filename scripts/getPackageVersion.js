@@ -5,8 +5,8 @@ const { join } = require('path');
 let packagePath;
 
 switch (process.argv.slice(2)[0]) {
-  case 'client':
-    packagePath = join(__dirname, '..', 'packages', 'client');
+  case 'frontend':
+    packagePath = join(__dirname, '..', 'packages', 'frontend');
     break;
   case 'domain':
     packagePath = join(__dirname, '..', 'packages', 'domain');
@@ -14,8 +14,8 @@ switch (process.argv.slice(2)[0]) {
   case 'lib':
     packagePath = join(__dirname, '..', 'packages', 'lib');
     break;
-  case 'server':
-    packagePath = join(__dirname, '..', 'packages', 'server');
+  case 'backend':
+    packagePath = join(__dirname, '..', 'packages', 'backend');
     break;
   case 'repo':
   default:
