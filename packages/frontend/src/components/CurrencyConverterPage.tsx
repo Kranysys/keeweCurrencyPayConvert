@@ -9,6 +9,7 @@ import {
   MenuItem,
   Typography,
   SelectChangeEvent,
+  CircularProgress,
 } from '@mui/material';
 
 const CurrencyConverterPage: React.FC = () => {
@@ -16,6 +17,8 @@ const CurrencyConverterPage: React.FC = () => {
   const [currencyFrom, setCurrencyFrom] = useState<string>('EUR');
   const [currencyTo, setCurrencyTo] = useState<string>('USD');
   const [convertedAmount, setConvertedAmount] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
 
   const handleAmountChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setAmount(event.target.value);
@@ -30,18 +33,32 @@ const CurrencyConverterPage: React.FC = () => {
   };
 
   const convertCurrency = async (): Promise<void> => {
+    setIsLoading(true);
+    setError('');
     try {
+      const token = localStorage.getItem('jwtToken');
+      const headers: HeadersInit = new Headers();
+
+      if (token) {
+        headers.append('Authorization', `Bearer ${token}`);
+      }
+
       const response = await fetch(
-        `${API_URL}/exchange/convert?from=${currencyFrom}&to=${currencyTo}&amount=${amount}`
+        `${API_URL}/exchange/convert?from=${currencyFrom}&to=${currencyTo}&amount=${amount}`,
+        { method: 'GET', headers: headers }
       );
       if (!response.ok) {
-        throw new Error('Réponse réseau non OK');
+        throw new Error('La réponse du réseau est non satisfaisante.');
       }
       const data = await response.json();
       setConvertedAmount(data.convertedAmount);
     } catch (error) {
+      setError(
+        'Erreur lors de la conversion de la devise. Veuillez réessayer.'
+      );
       console.error('Erreur lors de la conversion de devise:', error);
     }
+    setIsLoading(false);
   };
 
   const handleConvert = (): void => {
@@ -85,6 +102,12 @@ const CurrencyConverterPage: React.FC = () => {
       <Button variant="contained" onClick={handleConvert} sx={{ mt: 2 }}>
         Convertir
       </Button>
+      {isLoading && <CircularProgress sx={{ mt: 2 }} />}
+      {error && (
+        <Typography color="error" sx={{ mt: 2 }}>
+          {error}
+        </Typography>
+      )}
       {convertedAmount !== null && (
         <Typography sx={{ mt: 2 }}>
           Montant converti: {convertedAmount.toFixed(2)} {currencyTo}

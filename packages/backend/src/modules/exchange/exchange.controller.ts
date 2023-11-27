@@ -4,7 +4,9 @@ import {
   Query,
   HttpException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ExchangeService } from './exchange.service';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -13,6 +15,7 @@ import { throwError } from 'rxjs';
 export class ExchangeController {
   constructor(private exchangeService: ExchangeService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get('/convert')
   convertCurrency(
     @Query('from') from: string,
