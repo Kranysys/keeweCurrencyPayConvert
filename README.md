@@ -2,6 +2,10 @@
 
 ![Screenshot of my app](doc/screenshot.png)
 
+![Screenshot of my app](doc/screenshot2.png)
+
+![Screenshot of my app](doc/screenshot3.png)
+
 Ce projet utilise **[TypeScript](https://www.typescriptlang.org/)** (^4.7.4), et utilise les frameworks suivants:
 
 - [NestJS](https://nestjs.com/) (^9.0.11) pour le serveur (API REST)
@@ -37,6 +41,12 @@ Ou lancer dans les dossiers respectifs le frontend et le backend avec `yarn star
 ```sh
 yarn lint
 ```
+
+## Database
+
+The backend NestJS use Mysql as database to store the history of payments.
+
+![Screenshot of my app](doc/database.png)
 
 ## Auteur
 

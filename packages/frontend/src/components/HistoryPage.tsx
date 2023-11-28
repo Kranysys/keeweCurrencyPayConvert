@@ -14,8 +14,7 @@ import {
 interface Transaction {
   date: string;
   amount: number;
-  fromCurrency: string;
-  toCurrency: string;
+  currency: string;
   status: string;
 }
 
@@ -27,7 +26,16 @@ const HistoryPage: React.FC = () => {
     const fetchTransactions = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:4000/payment/history');
+        const token = localStorage.getItem('jwtToken');
+        const headers: HeadersInit = new Headers();
+
+        if (token) {
+          headers.append('Authorization', `Bearer ${token}`);
+        }
+        const response = await fetch('http://localhost:4000/payment/history', {
+          method: 'GET',
+          headers: headers,
+        });
         const data = await response.json();
         setTransactions(data);
       } catch (error) {
@@ -68,7 +76,7 @@ const HistoryPage: React.FC = () => {
                   {transaction.date}
                 </TableCell>
                 <TableCell align="right">{transaction.amount}</TableCell>
-                <TableCell>{`${transaction.fromCurrency} → ${transaction.toCurrency}`}</TableCell>
+                <TableCell>{`→ ${transaction.currency}`}</TableCell>
                 <TableCell>{transaction.status}</TableCell>
               </TableRow>
             ))}
