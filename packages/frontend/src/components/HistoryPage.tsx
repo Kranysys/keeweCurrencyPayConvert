@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Table,
   TableBody,
@@ -8,9 +8,9 @@ import {
   TableRow,
   Paper,
   Typography,
+  CircularProgress,
 } from '@mui/material';
 
-// Type pour les données de transaction
 interface Transaction {
   date: string;
   amount: number;
@@ -19,20 +19,31 @@ interface Transaction {
   status: string;
 }
 
-// Données de transaction de démonstration
-const transactions: Transaction[] = [
-  // Remplir avec les données de transaction réelles
-  {
-    date: '2023-01-01',
-    amount: 100,
-    fromCurrency: 'USD',
-    toCurrency: 'EUR',
-    status: 'Succès',
-  },
-  // Ajouter plus de transactions ici...
-];
-
 const HistoryPage: React.FC = () => {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:4000/payment/history');
+        const data = await response.json();
+        setTransactions(data);
+      } catch (error) {
+        console.error('Error fetching transaction history:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTransactions();
+  }, []);
+
+  if (loading) {
+    return <CircularProgress />;
+  }
+
   return (
     <div>
       <Typography variant="h6">Historique</Typography>

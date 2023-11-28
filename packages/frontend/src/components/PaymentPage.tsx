@@ -1,20 +1,61 @@
 import React, { useState, ChangeEvent } from 'react';
-import { TextField, Button, Typography } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Typography,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
 
 const PaymentPage: React.FC = () => {
   const [amount, setAmount] = useState<string>('');
-  const [convertedAmount, setConvertedAmount] = useState<string>('');
+  const [paymentStatus, setPaymentStatus] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
+  const [currency, setCurrency] = useState<string>('EUR');
 
   const handleAmountChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setAmount(event.target.value);
   };
 
-  const handlePayment = (): void => {
-    // Conversion logic here
-    // For simplicity, let's assume 1 EUR = 1.1 USD
-    const amountInEur = parseFloat(amount);
-    const converted = amountInEur * 1.1;
-    setConvertedAmount(converted.toFixed(2));
+  const handleCurrencyToChange = (event: SelectChangeEvent<string>): void => {
+    setCurrency(event.target.value as string);
+  };
+
+  const handlePayment = async (): Promise<void> => {
+    setIsLoading(true);
+    setError('');
+    try {
+      const token = localStorage.getItem('jwtToken');
+      const headers: HeadersInit = new Headers();
+      headers.append('Content-Type', 'application/json');
+      if (token) {
+        headers.append('Authorization', `Bearer ${token}`);
+      }
+      const response = await fetch('http://localhost:4000/payment/process', {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+          amount: Number(parseFloat(amount)),
+          currency: currency,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.status === 'Processed') {
+        setPaymentStatus(`Paiement réussi pour le montant: ${data.amount} EUR`);
+      } else {
+        setPaymentStatus('Échec du paiement');
+      }
+    } catch (error) {
+      setError('Erreur lors du paiement');
+      console.error('Erreur lors du paiement:', error);
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -27,14 +68,24 @@ const PaymentPage: React.FC = () => {
         onChange={handleAmountChange}
         margin="normal"
       />
+      <FormControl fullWidth margin="normal">
+        <InputLabel>Vers</InputLabel>
+        <Select value={currency} onChange={handleCurrencyToChange} label="Vers">
+          <MenuItem value="EUR">EUR</MenuItem>
+          <MenuItem value="GBP">GBP</MenuItem>
+          <MenuItem value="USD">USD</MenuItem>
+        </Select>
+      </FormControl>
       <Button variant="contained" onClick={handlePayment} sx={{ mt: 2 }}>
         Payer
       </Button>
-      {convertedAmount && (
-        <Typography sx={{ mt: 2 }}>
-          Montant équivalent en USD: {convertedAmount}
+      {isLoading && <CircularProgress sx={{ mt: 2 }} />}
+      {error && (
+        <Typography color="error" sx={{ mt: 2 }}>
+          {error}
         </Typography>
       )}
+      {paymentStatus && <Typography sx={{ mt: 2 }}>{paymentStatus}</Typography>}
     </div>
   );
 };

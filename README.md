@@ -1,5 +1,7 @@
 # Application de Paiement et Conversion de Devise
 
+![Screenshot of my app](doc/screenshot.png)
+
 Ce projet utilise **[TypeScript](https://www.typescriptlang.org/)** (^4.7.4), et utilise les frameworks suivants:
 
 - [NestJS](https://nestjs.com/) (^9.0.11) pour le serveur (API REST)
@@ -16,7 +18,7 @@ Ce projet utilise **[TypeScript](https://www.typescriptlang.org/)** (^4.7.4), et
 yarn install
 ```
 
-2. Builder les packages (`lib` and `domain`) uitlisés par `backend` et `frontend`:
+2. Builder les packages (`lib` and `domain`) utilisés par `backend` et `frontend`:
 
 ```sh
 yarn build:common
@@ -27,6 +29,8 @@ Pour le développement:
 ```sh
 yarn start:common
 ```
+
+Ou lancer dans les dossiers respectifs le frontend et le backend avec `yarn start`
 
 ## Linting
 
